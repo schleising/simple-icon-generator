@@ -30,7 +30,7 @@ def create_badge(size: int, text: str, text_fill: str):
     # Save the image to a file
     badge_img.save(f'icons/badge-{size}x{size}.png')
 
-def create_icon(size: int, text: str, text_fill: str, red: int, green: int, blue: int):
+def create_icon(size: int, text: str, text_fill: str, red: int, green: int, blue: int, create_ico = False):
     # Create a new image with a cornflowerblue background
     icon_img = Image.new('RGBA', (size, size), (0, 0, 0, 0))
 
@@ -60,6 +60,17 @@ def create_icon(size: int, text: str, text_fill: str, red: int, green: int, blue
     # Save the image to a file
     icon_img.save(f'icons/icon-{size}x{size}.png')
 
+    # Create the favicon.ico file if create_ico is True
+    if create_ico:
+        # Set the size of the favicon
+        favicon_size = 48
+
+        # Resize the image to 48x48
+        favicon_img = icon_img.resize((favicon_size, favicon_size), Image.LANCZOS)
+
+        # Save the image to a file
+        favicon_img.save(f'icons/favicon-{favicon_size}x{favicon_size}.ico')
+
 def main():
     h = 218.54 / 360
     s = 79.19 / 100
@@ -70,7 +81,7 @@ def main():
     create_badge(192, 'C', 'white')
     create_icon(144, 'C', 'white', r, g, b)
     create_icon(192, 'C', 'white', r, g, b)
-    create_icon(512, 'C', 'white', r, g, b)
+    create_icon(512, 'C', 'white', r, g, b, create_ico=True)
 
 if __name__ == '__main__':
     main()
